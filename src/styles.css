@@ -1,0 +1,251 @@
+body {
+  font-family: "Montserrat", sans-serif;
+  background: #f3f3f3;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3d107c 40%, #fff 100%);
+  gap: 2rem;
+}
+
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.card-front,
+.card-back {
+  border-radius: 16px;
+  box-shadow: 0 6px 30px rgba(30, 0, 60, 0.09);
+  width: 360px;
+  height: 210px;
+  position: relative;
+}
+
+.card-front {
+  background: linear-gradient(120deg, #6a03e9 0%, #7a1cff 40%, #fe4ea6 100%);
+  color: #fff;
+  padding: 2rem 1.8rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.circle {
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border-radius: 50%;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}
+
+.circle-outline {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  position: absolute;
+  top: 36px;
+  left: 84px;
+}
+
+.number-output {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin-bottom: 1.3rem;
+  margin-top: 2.8rem;
+  min-height: 2.4rem;
+  user-select: none;
+}
+
+.name-output {
+  font-size: 1.1rem;
+  letter-spacing: 1.2px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  min-height: 1.4rem;
+  user-select: none;
+}
+
+.month-output,
+.year-output {
+  font-size: 1rem;
+  font-weight: 500;
+  min-width: 2ch;
+}
+
+.card-back {
+  background: #f5f6fa;
+  height: 120px;
+  width: 320px;
+  margin-top: -30px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  position: relative;
+}
+
+.card-back:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 24px;
+  background: #222;
+  position: absolute;
+  top: 18px;
+  left: 0;
+  border-radius: 4px;
+}
+
+.cvc-output {
+  background: #bcc1cf;
+  color: #454545;
+  font-weight: 700;
+  font-size: 1rem;
+  position: absolute;
+  right: 30px;
+  top: 56px;
+  padding: 6px 20px;
+  border-radius: 4px;
+  user-select: none;
+}
+
+form {
+  background: #fff;
+  padding: 3rem 2rem 2rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 22px rgba(66, 35, 151, 0.09);
+  min-width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+form label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 1.04rem;
+  color: #32285b;
+}
+
+.date-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.month-input,
+.year-input,
+.cvc-input {
+  width: 60px;
+  padding: 12px 8px;
+}
+
+input {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  padding: 12px 14px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  background: #f5f5ff;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  color: #27204a;
+}
+
+input:focus {
+  border-color: rgb(134, 87, 247);
+  background: #e6e4ff;
+}
+
+input.error {
+  border-color: #e63e47 !important;
+  background: #fff2f3;
+}
+
+.error {
+  font-size: 0.95rem;
+  color: #e63e47;
+  margin-top: 0.32rem;
+  font-weight: 500;
+  display: block;
+}
+
+.error.empty,
+.error.invalid {
+  display: none;
+}
+
+.btn {
+  margin-top: 2rem;
+  padding: 18px 0;
+  background: #2f1042;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+  letter-spacing: 1px;
+}
+
+/* Button Hover State */
+.btn:hover,
+.btn:active {
+  background: rgb(69, 89, 161);
+}
+
+/* Modal Overlay */
+.modal {
+  background: #fff;
+  box-shadow: 0 6px 30px rgba(60, 20, 90, 0.09);
+  border-radius: 16px;
+  padding: 4rem 2rem 2.5rem 2rem;
+  min-width: 350px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  position: absolute;
+  top: 17vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+}
+
+.checkmark {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #8903e9 40%, #fe4ea6 100%);
+  color: #fff;
+  font-size: 2.7rem;
+  margin: 0 auto;
+}
