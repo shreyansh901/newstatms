@@ -1,113 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>JavaScript Sandbox</title>
     <meta charset="UTF-8" />
+    <title>Interactive Credit Card Form</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-
   <body>
-    <div class="container" id="card-container">
-      <!-- Card Section -->
-      <section>
+    <div class="container">
+      <div class="card-preview">
         <div class="card-front">
-          <div class="circle"></div>
-          <div class="circle-outline"></div>
-          <div class="number-output">0000 0000 0000 0000</div>
-          <div class="name-output">JANE APPLESEED</div>
-          <div>
-            <span class="month-output">00</span>/<span class="year-output"
-              >00</span
-            >
-          </div>
+          <span class="name-output">JANE APPLESEED</span>
+          <span class="number-output">0000 0000 0000 0000</span>
+          <span class="month-output">00</span>/<span class="year-output"
+            >00</span
+          >
         </div>
         <div class="card-back">
-          <div class="cvc-output">000</div>
+          <span class="cvc-output">000</span>
         </div>
-      </section>
+      </div>
+      <form id="card-form" class="form">
+        <input
+          type="text"
+          class="name-input"
+          placeholder="e.g. Jane Appleseed"
+        />
+        <span class="error empty"></span>
+        <span class="error invalid"></span>
 
-      <!-- Form Section -->
-      <form id="card-form">
-        <label>
-          CARDHOLDER NAME
+        <input
+          type="text"
+          class="number-input"
+          placeholder="e.g. 1234 5678 9123 0000"
+          maxlength="19"
+        />
+        <span class="error empty"></span>
+        <span class="error invalid"></span>
+
+        <div class="date-input">
           <input
             type="text"
-            class="name-input"
-            placeholder="e.g. Jane Appleseed"
+            class="month-input"
+            placeholder="MM"
+            maxlength="2"
           />
-          <span class="error empty" style="display: none">Can't be blank</span>
-          <span class="error invalid" style="display: none"
-            >Wrong format, letters only</span
-          >
-        </label>
-        <label>
-          CARD NUMBER
           <input
             type="text"
-            maxlength="19"
-            class="number-input"
-            placeholder="e.g. 1234 5678 9123 0000"
+            class="year-input"
+            placeholder="YY"
+            maxlength="2"
           />
-          <span class="error empty" style="display: none">Can't be blank</span>
-          <span class="error invalid" style="display: none"
-            >Wrong format, numbers only</span
-          >
-        </label>
-        <div class="date-container">
-          <label>
-            EXP. DATE (MM/YY)
-            <input
-              type="text"
-              maxlength="2"
-              class="date-input month-input"
-              placeholder="MM"
-            />
-            <span class="error empty" style="display: none"
-              >Can't be blank</span
-            >
-            <span class="error invalid" style="display: none"
-              >Wrong format, numbers only</span
-            >
-            <input
-              type="text"
-              maxlength="2"
-              class="date-input year-input"
-              placeholder="YY"
-            />
-            <span class="error empty" style="display: none"
-              >Can't be blank</span
-            >
-            <span class="error invalid" style="display: none"
-              >Wrong format, numbers only</span
-            >
-          </label>
-          <label>
-            CVC
-            <input
-              type="text"
-              maxlength="3"
-              class="cvc-input"
-              placeholder="e.g. 123"
-            />
-            <span class="error empty" style="display: none"
-              >Can't be blank</span
-            >
-            <span class="error invalid" style="display: none"
-              >Wrong format, numbers only</span
-            >
-          </label>
         </div>
+        <span class="error empty"></span>
+        <span class="error invalid"></span>
+
+        <input
+          type="text"
+          class="cvc-input"
+          placeholder="e.g. 123"
+          maxlength="3"
+        />
+        <span class="error empty"></span>
+        <span class="error invalid"></span>
+
         <button type="submit" class="btn">Confirm</button>
       </form>
 
-      <!-- Thank You Modal -->
-      <div class="modal" style="display: none">
-        <div class="checkmark">&#10003;</div>
-        <h2>THANK YOU!</h2>
+      <div class="thank-you hidden">
+        <p>THANK YOU!</p>
         <p>We've added your card details</p>
-        <button class="btn close">Continue</button>
+        <button onclick="resetForm()">Continue</button>
       </div>
     </div>
-
-    <script src="./index.mjs" type="module" defer></script>
+    <script src="index.mjs"></script>
   </body>
 </html>

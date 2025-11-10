@@ -15,6 +15,9 @@ body {
   gap: 2rem;
 }
 
+.card-preview{
+  justify-items: flex-end;
+}
 @media (max-width: 600px) {
   .container {
     flex-direction: column;
@@ -30,6 +33,7 @@ section {
   gap: 1.5rem;
 }
 
+/* Card visuals */
 .card-front,
 .card-back {
   border-radius: 16px;
@@ -43,7 +47,7 @@ section {
   background: linear-gradient(120deg, #6a03e9 0%, #7a1cff 40%, #fe4ea6 100%);
   color: #fff;
   padding: 2rem 1.8rem;
-  box-sizing: border-box;
+  /*box-sizing: border-box;*/
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -69,6 +73,7 @@ section {
   left: 84px;
 }
 
+/* Outputs for card details */
 .number-output {
   font-size: 2rem;
   font-weight: 500;
@@ -131,6 +136,7 @@ section {
   user-select: none;
 }
 
+/* Form styling */
 form {
   background: #fff;
   padding: 3rem 2rem 2rem 2rem;
@@ -155,15 +161,11 @@ form label {
   gap: 2rem;
 }
 
+.name-input,
+.number-input,
 .month-input,
 .year-input,
 .cvc-input {
-  width: 60px;
-  padding: 12px 8px;
-}
-
-input {
-  margin-top: 0.5rem;
   font-size: 1rem;
   padding: 12px 14px;
   border: 2px solid #ddd;
@@ -173,13 +175,27 @@ input {
   transition: border-color 0.2s;
   box-sizing: border-box;
   color: #27204a;
+  margin-top: 0.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-input:focus {
+.month-input,
+.year-input,
+.cvc-input {
+  width: 60px;
+}
+
+.name-input:focus,
+.number-input:focus,
+.month-input:focus,
+.year-input:focus,
+.cvc-input:focus {
   border-color: rgb(134, 87, 247);
   background: #e6e4ff;
 }
 
+/* Error styling */
 input.error {
   border-color: #e63e47 !important;
   background: #fff2f3;
@@ -190,14 +206,10 @@ input.error {
   color: #e63e47;
   margin-top: 0.32rem;
   font-weight: 500;
-  display: block;
-}
-
-.error.empty,
-.error.invalid {
   display: none;
 }
 
+/* Button styling */
 .btn {
   margin-top: 2rem;
   padding: 18px 0;
@@ -212,31 +224,32 @@ input.error {
   letter-spacing: 1px;
 }
 
-/* Button Hover State */
 .btn:hover,
 .btn:active {
   background: rgb(69, 89, 161);
 }
 
-/* Modal Overlay */
-.modal {
+/* Thank you screen */
+.thank-you {
+  display: none;
   background: #fff;
   box-shadow: 0 6px 30px rgba(60, 20, 90, 0.09);
   border-radius: 16px;
   padding: 4rem 2rem 2.5rem 2rem;
   min-width: 350px;
   text-align: center;
-  display: flex;
   flex-direction: column;
   gap: 1.5rem;
   align-items: center;
-  position: absolute;
-  top: 17vh;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 50;
+  position: relative;
+ /* margin: auto; */
 }
 
+.thank-you:not(.hidden) {
+  display: flex;
+}
+
+/* Checkmark icon */
 .checkmark {
   width: 60px;
   height: 60px;
