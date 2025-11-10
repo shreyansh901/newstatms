@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const nameInput = document.querySelector(".name-input");
   const numberInput = document.querySelector(".number-input");
-  const monthInput = document.querySelector(".date-input .month-input");
-  const yearInput = document.querySelector(".date-input .year-input");
+  const monthInput = document.querySelector(".month-input");
+  const yearInput = document.querySelector(".year-input");
   const cvcInput = document.querySelector(".cvc-input");
 
   const nameOutput = document.querySelector(".name-output");
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault(); // prevent default behavior
     let valid = true;
 
-    console.log(submitButtons);
+    console.log("submitButtons", submitButtons);
     // Clear previous errors
     document.querySelectorAll(".error").forEach((el) => {
       el.textContent = "";
