@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const cvcOutput = document.querySelector(".cvc-output");
 
   const submitButtons = document.querySelector(".btn");
+  submitButton.setAttribute("type", "submit");
   const thankYouScreen = document.querySelector(".thank-you.hidden");
   //submitbuttons change
   // Helper to format card number with spaces after every 4 digits
