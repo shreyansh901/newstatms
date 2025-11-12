@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const submitButtons = document.querySelector(".btn");
   const thankYouScreen = document.querySelector(".thank-you.hidden");
-
+  //submitbuttons change
   // Helper to format card number with spaces after every 4 digits
   function formatNumber(value) {
     return value
