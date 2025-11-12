@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const yearOutput = document.querySelector(".year-output");
   const cvcOutput = document.querySelector(".cvc-output");
 
-  const submitButtons = document.querySelector('button[type="submit"]');
+  const submitButtons = document.querySelector(".btn");
   const thankYouScreen = document.querySelector(".thank-you.hidden");
 
   // Helper to format card number with spaces after every 4 digits
