@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".error").forEach((el) => {
       el.textContent = "";
       el.style.display = "none";
+      el.classList.remove("invalid");  // <-- Added: Clean up the class
     });
 
     // Validation logic
@@ -135,17 +136,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Helper to display error messages
+  // Helper to display error messages (FIXED VERSION)
   function showError(inputEl, message) {
     let errorSpan;
+
+    // Date inputs share a single error span after the whole .date-input wrapper
     if (inputEl.closest(".date-input")) {
       errorSpan = inputEl.closest(".date-input").nextElementSibling;
     } else {
-      errorSpan = inputEl.nextElementSibling;
+      // For name, number, cvc: Find the first .error sibling that comes AFTER the input
+      const siblings = Array.from(inputEl.parentNode.children);
+      errorSpan = siblings.find(sib => {
+        return (
+          sib !== inputEl &&  // Not the input itself
+          sib.classList &&
+          sib.classList.contains("error") &&
+          (sib.compareDocumentPosition(inputEl) & Node.DOCUMENT_POSITION_FOLLOWING)
+        );
+      });
     }
+
     if (errorSpan) {
       errorSpan.textContent = message;
-      errorSpan.style.display = "block";
+      errorSpan.style.display = "block";  // Force visibility
+      errorSpan.classList.add("invalid"); // Add class for Cypress selector
+    } else {
+      console.warn("No error span found for input:", inputEl); // Debug if missing
     }
   }
 
@@ -170,6 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".error").forEach((el) => {
       el.textContent = "";
       el.style.display = "none";
+      el.classList.remove("invalid");
     });
   };
 });
