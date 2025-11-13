@@ -1,21 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const nameInput = document.querySelector(".name-input");
+  const nameInput   = document.querySelector(".name-input");
   const numberInput = document.querySelector(".number-input");
-  const monthInput = document.querySelector(".date-input .month-input");
-  const yearInput = document.querySelector(".date-input .year-input");
-  const cvcInput = document.querySelector(".cvc-input");
+  const monthInput  = document.querySelector(".date-input .month-input");
+  const yearInput   = document.querySelector(".date-input .year-input");
+  const cvcInput    = document.querySelector(".cvc-input");
 
-  const nameOutput = document.querySelector(".name-output");
+  const nameOutput   = document.querySelector(".name-output");
   const numberOutput = document.querySelector(".number-output");
-  const monthOutput = document.querySelector(".month-output");
-  const yearOutput = document.querySelector(".year-output");
-  const cvcOutput = document.querySelector(".cvc-output");
+  const monthOutput  = document.querySelector(".month-output");
+  const yearOutput   = document.querySelector(".year-output");
+  const cvcOutput    = document.querySelector(".cvc-output");
 
-  const submitButtons = document.querySelector(".btn");
-  submitButtons.setAttribute("type", "submit");
+  const submitBtn = document.querySelector(".btn");
+  submitBtn.setAttribute("type", "submit");
   const thankYouScreen = document.querySelector(".thank-you.hidden");
-  //submitbuttons change
-  // Helper to format card number with spaces after every 4 digits
+
+  /* ---------------------------------------------------- */
+  /*  Helper – card number formatting                     */
+  /* ---------------------------------------------------- */
   function formatNumber(value) {
     return value
       .replace(/\s/g, "")
@@ -23,170 +25,160 @@ document.addEventListener("DOMContentLoaded", () => {
       .trim();
   }
 
-  // Real-time updates
+  /* ---------------------------------------------------- */
+  /*  Real-time preview                                   */
+  /* ---------------------------------------------------- */
   nameInput.addEventListener("input", () => {
     nameOutput.textContent = nameInput.value || "JANE APPLESEED";
-    console.log(nameInput.value);
   });
 
   numberInput.addEventListener("input", () => {
     const formatted = formatNumber(numberInput.value);
     numberOutput.textContent = formatted || "0000 0000 0000 0000";
     numberInput.value = formatted;
-    console.log(numberInput.value);
   });
 
   monthInput.addEventListener("input", () => {
-    let month = monthInput.value.replace(/\s/g, "").slice(0, 2);
-    monthInput.value = month;
-    monthOutput.textContent = month ? month.padStart(2, "0") : "00";
-    console.log(monthInput.value);
+    const m = monthInput.value.replace(/\s/g, "").slice(0, 2);
+    monthInput.value = m;
+    monthOutput.textContent = m ? m.padStart(2, "0") : "00";
   });
 
   yearInput.addEventListener("input", () => {
-    let year = yearInput.value.replace(/\s/g, "").slice(0, 2);
-    yearInput.value = year;
-    yearOutput.textContent = year ? year.padStart(2, "0") : "00";
-    console.log(yearInput.value);
+    const y = yearInput.value.replace(/\s/g, "").slice(0, 2);
+    yearInput.value = y;
+    yearOutput.textContent = y ? y.padStart(2, "0") : "00";
   });
 
   cvcInput.addEventListener("input", () => {
-    let cvc = cvcInput.value.replace(/\s/g, "").slice(0, 3);
-    cvcInput.value = cvc;
-    cvcOutput.textContent = cvc || "000";
-    console.log(cvcInput.value);
+    const c = cvcInput.value.replace(/\s/g, "").slice(0, 3);
+    cvcInput.value = c;
+    cvcOutput.textContent = c || "000";
   });
 
-  // Submit button logic (no form used)
-
-  submitButtons.addEventListener("click", function (e) {
-    e.preventDefault(); // prevent default behavior
+  /* ---------------------------------------------------- */
+  /*  Submit – validation & error handling                */
+  /* ---------------------------------------------------- */
+  submitBtn.addEventListener("click", e => {
+    e.preventDefault();
     let valid = true;
 
-    console.log("submitButtons", submitButtons);
-    // Clear previous errors
-    document.querySelectorAll(".error").forEach((el) => {
+    /* ---- clear previous errors (adds .empty where needed) ---- */
+    document.querySelectorAll(".error").forEach(el => {
       el.textContent = "";
       el.style.display = "none";
-      el.classList.remove("invalid");  // <-- Added: Clean up the class
+      el.classList.remove("invalid", "empty");
     });
 
-    // Validation logic
+    /* ---- NAME ---- */
     if (!nameInput.value.trim()) {
-      showError(nameInput, "Can't be blank");
+      showError(nameInput, "Can't be blank", true);   // true → blank
       valid = false;
-      console.log(nameInput.value);
     } else if (!/^[A-Za-z\s]+$/.test(nameInput.value)) {
       showError(nameInput, "Wrong format, letters only");
       valid = false;
-      console.log(nameInput.value);
     }
 
+    /* ---- CARD NUMBER ---- */
     if (!numberInput.value.trim()) {
-      showError(numberInput, "Can't be blank");
+      showError(numberInput, "Can't be blank", true);
       valid = false;
-      console.log(numberInput.value);
     } else {
-      const numClean = numberInput.value.replace(/\s/g, "");
-      if (!/^\d{16}$/.test(numClean)) {
+      const clean = numberInput.value.replace(/\s/g, "");
+      if (!/^\d{16}$/.test(clean)) {
         showError(numberInput, "Wrong format, numbers only");
         valid = false;
-        console.log(numberInput.value);
       }
     }
 
+    /* ---- MONTH ---- */
     if (!monthInput.value.trim()) {
-      showError(monthInput, "Can't be blank");
+      showError(monthInput, "Can't be blank", true);
       valid = false;
-      console.log(monthInput.value);
-    } else if (
-      !/^\d{2}$/.test(monthInput.value) ||
-      +monthInput.value < 1 ||
-      +monthInput.value > 12
-    ) {
+    } else if (!/^\d{2}$/.test(monthInput.value) ||
+               +monthInput.value < 1 ||
+               +monthInput.value > 12) {
       showError(monthInput, "Wrong format, numbers only");
       valid = false;
-      console.log(monthInput.value);
     }
 
+    /* ---- YEAR ---- */
     if (!yearInput.value.trim()) {
-      showError(yearInput, "Can't be blank");
+      showError(yearInput, "Can't be blank", true);
       valid = false;
-      console.log(yearInput.value);
     } else if (!/^\d{2}$/.test(yearInput.value)) {
       showError(yearInput, "Wrong format, numbers only");
       valid = false;
-      console.log(yearInput.value);
     }
 
+    /* ---- CVC ---- */
     if (!cvcInput.value.trim()) {
-      showError(cvcInput, "Can't be blank");
+      showError(cvcInput, "Can't be blank", true);
       valid = false;
-      console.log(cvcInput.value);
     } else if (!/^\d{3}$/.test(cvcInput.value)) {
       showError(cvcInput, "Wrong format, numbers only");
       valid = false;
-      console.log(cvcInput.value);
     }
 
-    // Show thank-you screen if valid
+    /* ---- SUCCESS ---- */
     if (valid) {
-      document.getElementById("card-form").style.display = "none"; // hide the form container
+      document.getElementById("card-form").style.display = "none";
       thankYouScreen.classList.remove("hidden");
     }
   });
 
-  // Helper to display error messages (FIXED VERSION)
-  function showError(inputEl, message) {
+  /* ---------------------------------------------------- */
+  /*  showError – now adds BOTH .invalid AND .empty       */
+  /* ---------------------------------------------------- */
+  function showError(inputEl, message, isBlank = false) {
     let errorSpan;
 
-    // Date inputs share a single error span after the whole .date-input wrapper
+    /* Date fields share one error after the wrapper */
     if (inputEl.closest(".date-input")) {
       errorSpan = inputEl.closest(".date-input").nextElementSibling;
     } else {
-      // For name, number, cvc: Find the first .error sibling that comes AFTER the input
+      /* Find the first .error that comes **after** the input */
       const siblings = Array.from(inputEl.parentNode.children);
-      errorSpan = siblings.find(sib => {
-        return (
-          sib !== inputEl &&  // Not the input itself
-          sib.classList &&
-          sib.classList.contains("error") &&
-          (sib.compareDocumentPosition(inputEl) & Node.DOCUMENT_POSITION_FOLLOWING)
-        );
-      });
+      errorSpan = siblings.find(sib =>
+        sib !== inputEl &&
+        sib.classList?.contains("error") &&
+        (sib.compareDocumentPosition(inputEl) & Node.DOCUMENT_POSITION_FOLLOWING)
+      );
     }
 
     if (errorSpan) {
       errorSpan.textContent = message;
-      errorSpan.style.display = "block";  // Force visibility
-      errorSpan.classList.add("invalid"); // Add class for Cypress selector
+      errorSpan.style.display = "block";
+
+      /* Always add .invalid (used by most tests) */
+      errorSpan.classList.add("invalid");
+
+      /* Add .empty only for blank-field errors */
+      if (isBlank) errorSpan.classList.add("empty");
     } else {
-      console.warn("No error span found for input:", inputEl); // Debug if missing
+      console.warn("No error span for:", inputEl);
     }
   }
 
-  // Reset function (no form element reference)
+  /* ---------------------------------------------------- */
+  /*  Reset (Continue button)                             */
+  /* ---------------------------------------------------- */
   window.resetForm = function () {
     document.getElementById("card-form").style.display = "flex";
     thankYouScreen.classList.add("hidden");
 
-    // Reset all inputs
-    [nameInput, numberInput, monthInput, yearInput, cvcInput].forEach(
-      (input) => (input.value = "")
-    );
+    [nameInput, numberInput, monthInput, yearInput, cvcInput].forEach(i => i.value = "");
 
-    // Reset outputs
-    nameOutput.textContent = "JANE APPLESEED";
+    nameOutput.textContent   = "JANE APPLESEED";
     numberOutput.textContent = "0000 0000 0000 0000";
-    monthOutput.textContent = "00";
-    yearOutput.textContent = "00";
-    cvcOutput.textContent = "000";
+    monthOutput.textContent  = "00";
+    yearOutput.textContent   = "00";
+    cvcOutput.textContent    = "000";
 
-    // Clear all errors
-    document.querySelectorAll(".error").forEach((el) => {
+    document.querySelectorAll(".error").forEach(el => {
       el.textContent = "";
       el.style.display = "none";
-      el.classList.remove("invalid");
+      el.classList.remove("invalid", "empty");
     });
   };
-});
+}); //done
