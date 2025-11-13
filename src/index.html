@@ -11,68 +11,78 @@
         <div class="card-front">
           <span class="name-output">JANE APPLESEED</span>
           <span class="number-output">0000 0000 0000 0000</span>
-          <span class="month-output">00</span>/<span class="year-output"
-            >00</span
-          >
+          <span class="month-output">00</span>/<span class="year-output">00</span>
         </div>
         <div class="card-back">
           <span class="cvc-output">000</span>
         </div>
       </div>
+
+      <!-- ====================== FORM ====================== -->
       <form id="card-form" class="form">
-        <input
-          type="text"
-          class="name-input"
-          placeholder="e.g. Jane Appleseed"
-        />
-        <span class="error empty"></span>
-        <span class="error invalid"></span>
-
-        <input
-          type="text"
-          class="number-input"
-          placeholder="e.g. 1234 5678 9123 0000"
-          maxlength="19"
-        />
-        <span class="error empty"></span>
-        <span class="error invalid"></span>
-
-        <div class="date-input">
+        <!-- ==== NAME ==== -->
+        <div class="input-wrapper">
           <input
             type="text"
-            class="month-input"
-            placeholder="MM"
-            maxlength="2"
+            class="name-input"
+            placeholder="e.g. Jane Appleseed"
           />
-          <input
-            type="text"
-            class="year-input"
-            placeholder="YY"
-            maxlength="2"
-          />
+          <span class="error"></span>   <!-- ONE error span -->
         </div>
-        <span class="error empty"></span>
-        <span class="error invalid"></span>
 
-        <input
-          type="text"
-          class="cvc-input"
-          placeholder="e.g. 123"
-          maxlength="3"
-        />
-        <span class="error empty"></span>
-        <span class="error invalid"></span>
+        <!-- ==== CARD NUMBER ==== -->
+        <div class="input-wrapper">
+          <input
+            type="text"
+            class="number-input"
+            placeholder="e.g. 1234 5678 9123 0000"
+            maxlength="19"
+          />
+          <span class="error"></span>
+        </div>
 
+        <!-- ==== EXPIRY DATE ==== -->
+        <div class="date-input-wrapper">
+          <div class="date-input">
+            <input
+              type="text"
+              class="month-input"
+              placeholder="MM"
+              maxlength="2"
+            />
+            <input
+              type="text"
+              class="year-input"
+              placeholder="YY"
+              maxlength="2"
+            />
+          </div>
+          <span class="error"></span>   <!-- ONE error after the wrapper -->
+        </div>
+
+        <!-- ==== CVC ==== -->
+        <div class="input-wrapper">
+          <input
+            type="text"
+            class="cvc-input"
+            placeholder="e.g. 123"
+            maxlength="3"
+          />
+          <span class="error"></span>
+        </div>
+
+        <!-- ==== SUBMIT ==== -->
         <button type="submit" class="btn">Confirm</button>
-        <!--but the button[type="submit"] is right here why it dosen't find it-->
       </form>
 
+      <!-- ====================== THANK YOU ====================== -->
       <div class="thank-you hidden">
         <p>THANK YOU!</p>
         <p>We've added your card details</p>
         <button onclick="resetForm()">Continue</button>
       </div>
     </div>
+
     <script src="index.js" defer></script>
   </body>
 </html>

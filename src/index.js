@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const nameInput   = document.querySelector(".name-input");
+  const nameInput = document.querySelector(".name-input");
   const numberInput = document.querySelector(".number-input");
-  const monthInput  = document.querySelector(".date-input .month-input");
-  const yearInput   = document.querySelector(".date-input .year-input");
-  const cvcInput    = document.querySelector(".cvc-input");
+  const monthInput = document.querySelector(".date-input .month-input");
+  const yearInput = document.querySelector(".date-input .year-input");
+  const cvcInput = document.querySelector(".cvc-input");
 
-  const nameOutput   = document.querySelector(".name-output");
+  const nameOutput = document.querySelector(".name-output");
   const numberOutput = document.querySelector(".number-output");
-  const monthOutput  = document.querySelector(".month-output");
-  const yearOutput   = document.querySelector(".year-output");
-  const cvcOutput    = document.querySelector(".cvc-output");
+  const monthOutput = document.querySelector(".month-output");
+  const yearOutput = document.querySelector(".year-output");
+  const cvcOutput = document.querySelector(".cvc-output");
 
   const submitBtn = document.querySelector(".btn");
   submitBtn.setAttribute("type", "submit");
@@ -59,20 +59,20 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ---------------------------------------------------- */
   /*  Submit – validation & error handling                */
   /* ---------------------------------------------------- */
-  submitBtn.addEventListener("click", e => {
+  submitBtn.addEventListener("click", (e) => {
     e.preventDefault();
     let valid = true;
 
     /* ---- clear previous errors (adds .empty where needed) ---- */
-    document.querySelectorAll(".error").forEach(el => {
+    document.querySelectorAll(".error").forEach((el) => {
       el.textContent = "";
       el.style.display = "none";
-      el.classList.remove("invalid", "empty");
+      // el.classList.remove("invalid", "empty");
     });
 
     /* ---- NAME ---- */
     if (!nameInput.value.trim()) {
-      showError(nameInput, "Can't be blank", true);   // true → blank
+      showError(nameInput, "Can't be blank", true); // true → blank
       valid = false;
     } else if (!/^[A-Za-z\s]+$/.test(nameInput.value)) {
       showError(nameInput, "Wrong format, letters only");
@@ -95,9 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!monthInput.value.trim()) {
       showError(monthInput, "Can't be blank", true);
       valid = false;
-    } else if (!/^\d{2}$/.test(monthInput.value) ||
-               +monthInput.value < 1 ||
-               +monthInput.value > 12) {
+    } else if (
+      !/^\d{2}$/.test(monthInput.value) ||
+      +monthInput.value < 1 ||
+      +monthInput.value > 12
+    ) {
       showError(monthInput, "Wrong format, numbers only");
       valid = false;
     }
@@ -133,30 +135,29 @@ document.addEventListener("DOMContentLoaded", () => {
   function showError(inputEl, message, isBlank = false) {
     let errorSpan;
 
-    /* Date fields share one error after the wrapper */
+    // Date fields share one error that lives **after the .date-input-wrapper**
     if (inputEl.closest(".date-input")) {
-      errorSpan = inputEl.closest(".date-input").nextElementSibling;
+      errorSpan = inputEl
+        .closest(".date-input-wrapper")
+        .querySelector(".error");
     } else {
-      /* Find the first .error that comes **after** the input */
-      const siblings = Array.from(inputEl.parentNode.children);
-      errorSpan = siblings.find(sib =>
-        sib !== inputEl &&
-        sib.classList?.contains("error") &&
-        (sib.compareDocumentPosition(inputEl) & Node.DOCUMENT_POSITION_FOLLOWING)
-      );
+      // For all other inputs – the error span is the next sibling inside the wrapper
+      errorSpan = inputEl.parentElement.querySelector(".error");
     }
 
     if (errorSpan) {
       errorSpan.textContent = message;
       errorSpan.style.display = "block";
 
-      /* Always add .invalid (used by most tests) */
+      // Always add .invalid
       errorSpan.classList.add("invalid");
 
-      /* Add .empty only for blank-field errors */
-      if (isBlank) errorSpan.classList.add("empty");
-    } else {
-      console.warn("No error span for:", inputEl);
+      // Add .empty only for blank errors, otherwise remove it
+      if (isBlank) {
+        errorSpan.classList.add("empty");
+      } else {
+        errorSpan.classList.remove("empty");
+      }
     }
   }
 
@@ -167,18 +168,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("card-form").style.display = "flex";
     thankYouScreen.classList.add("hidden");
 
-    [nameInput, numberInput, monthInput, yearInput, cvcInput].forEach(i => i.value = "");
+    [nameInput, numberInput, monthInput, yearInput, cvcInput].forEach(
+      (i) => (i.value = "")
+    );
 
-    nameOutput.textContent   = "JANE APPLESEED";
+    nameOutput.textContent = "JANE APPLESEED";
     numberOutput.textContent = "0000 0000 0000 0000";
-    monthOutput.textContent  = "00";
-    yearOutput.textContent   = "00";
-    cvcOutput.textContent    = "000";
+    monthOutput.textContent = "00";
+    yearOutput.textContent = "00";
+    cvcOutput.textContent = "000";
 
-    document.querySelectorAll(".error").forEach(el => {
+    document.querySelectorAll(".error").forEach((el) => {
       el.textContent = "";
       el.style.display = "none";
       el.classList.remove("invalid", "empty");
     });
   };
-}); //done
+});
